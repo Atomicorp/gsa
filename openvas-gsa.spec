@@ -74,7 +74,7 @@ GSA
 
 %prep
 %setup -n %{name}-%{version} -b 0
-%patch0 -p1 
+#%patch0 -p1 
 
 %build
 
