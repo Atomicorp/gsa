@@ -1,26 +1,11 @@
 OPTIONS=""
-
 #
 # The address the Greenbone Security Assistant will listen on.
 #
-
 GSA_ADDRESS=127.0.0.1
-
 #
 # The port the Greenbone Security Assistant will listen on.
 #
-
 GSA_PORT=9392
 
-#
-# The address the OpenVAS Manager is listening on.
-#
-
-MANAGER_ADDRESS=127.0.0.1
-
-#
-# The port the OpenVAS Manager is listening on.
-#
-
-MANAGER_PORT=9390
 

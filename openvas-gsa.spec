@@ -1,7 +1,7 @@
 Summary: GSA
 Name:    greenbone-security-assistant
 Version: 7.0.2
-Release: 24%{?dist}.art
+Release: RELEASE-AUTO%{?dist}.art
 Source0: http://wald.intevation.org/frs/download.php/2429/greenbone-security-assistant-7.0.2.tar.gz
 Source1: gsad.sysconfig
 Source2: gsad.logrotate
@@ -89,8 +89,8 @@ GSA
 export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -Wno-error=deprecated-declarations"
 
 %cmake -DLOCALSTATEDIR:PATH=%{_var} -DSYSCONFDIR:PATH=/etc/
-#make %{?_smp_mflags} VERBOSE=1
-make VERBOSE=1
+make %{?_smp_mflags} VERBOSE=1
+#make VERBOSE=1
 
 #cmake -DCMAKE_VERBOSE_MAKEFILE=ON \
 #        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
@@ -99,7 +99,7 @@ make VERBOSE=1
 
 #%{__make}  %{?_smp_mflags}
 #%{__make}  
-#%{__make}  doc
+%{__make}  doc
 
 
 %install

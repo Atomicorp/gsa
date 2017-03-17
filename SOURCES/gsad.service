@@ -7,7 +7,7 @@ After=openvas-manager.service
 [Service]
 Type=forking
 EnvironmentFile=-/etc/sysconfig/gsad
-ExecStart=/usr/sbin/gsad --listen $GSA_ADDRESS --port $GSA_PORT --mlisten $MANAGER_ADDRESS --mport $MANAGER_PORT $OPTIONS
+ExecStart=/usr/sbin/gsad --listen $GSA_ADDRESS --port $GSA_PORT $OPTIONS
 Restart=always
 RestartSec=1
 User=root
