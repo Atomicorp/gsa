@@ -1,0 +1,11 @@
+# see git-dpm(1) from git-dpm package
+49fac0bcec62d3770fcd48f73e5bac669d06ca5d
+49fac0bcec62d3770fcd48f73e5bac669d06ca5d
+3f2c8bbca0ec50540cff693c76f57953dc29a938
+3f2c8bbca0ec50540cff693c76f57953dc29a938
+greenbone-security-assistant_7.0.2+dfsg.1.orig.tar.gz
+4f6c1efab3d0d7268dc3925575d0bec0f7cc52aa
+2940596
+debianTag="debian/%e%v"
+patchedTag="patched/%e%v"
+upstreamTag="upstream/%e%u"

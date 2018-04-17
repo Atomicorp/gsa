@@ -1,0 +1,132 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: greenbone-security-assistant
+Source: https://wald.intevation.org/scm/viewvc.php/branches/?root=openvas
+Files-Excluded: src/html/classic/js/lib/min/*
+Comment:
+ Remove minified javascript file which is DFSG-incompatible
+
+Files: *
+Copyright: 2009-2016 Greenbone Networks GmbH
+License: GPL-2+
+
+Files: src/html/classic/js/lib/d3.tip.js
+Copyright: Justin Palmer
+License: Expat
+
+Files: src/html/classic/js/lib/d3.v3.js
+Copyright: Michael Bostock
+License: BSD-3-clause
+
+Files: src/html/classic/js/lib/d3.layout.cloud.js
+Copyright: Jason Davies
+License: BSD-3-clause
+
+Files: src/html/classic/js/lib/jquery-2.1.4.js
+Copyright: jQuery Foundation, Inc. and other contributors
+License: Expat
+
+Files: src/html/classic/css/jquery-ui.structure.css
+       src/html/classic/css/jquery-ui.structure.min.css
+       src/html/classic/css/jquery-ui.theme.css
+       src/html/classic/css/jquery-ui.theme.min.css
+       src/html/classic/css/images/ui-bg_diagonals-thick_18_aa0000_40x40.png
+       src/html/classic/css/images/ui-bg_diagonals-thick_30_666666_40x40.png
+       src/html/classic/css/images/ui-bg_flat_10_000000_40x100.png
+       src/html/classic/css/images/ui-bg_glass_65_ffffff_1x400.png
+       src/html/classic/css/images/ui-bg_highlight-hard_35_66c430_1x100.png
+       src/html/classic/css/images/ui-bg_highlight-soft_100_519032_1x100.png
+       src/html/classic/css/images/ui-bg_highlight-soft_100_87d050_1x100.png
+       src/html/classic/css/images/ui-bg_highlight-soft_100_eeeeee_1x100.png
+       src/html/classic/css/images/ui-bg_highlight-soft_75_fdc300_1x100.png
+       src/html/classic/css/images/ui-icons_222222_256x240.png
+       src/html/classic/css/images/ui-icons_519032_256x240.png
+       src/html/classic/css/images/ui-icons_87d050_256x240.png
+       src/html/classic/css/images/ui-icons_aa0000_256x240.png
+       src/html/classic/css/images/ui-icons_fdc300_256x240.png
+       src/html/classic/css/images/ui-icons_ffffff_256x240.png
+       src/html/classic/js/lib/jquery-ui.js
+Copyright: jQuery Foundation, Inc. and other contributors
+License: Expat
+
+Files: src/html/classic/css/select2.css
+       src/html/classic/css/select2.min.css
+       src/html/classic/js/lib/select2.js
+Copyright: Kevin Brown, Igor Vaynberg, and Select2 contributors
+License: Expat
+
+Files: src/html/classic/js/lib/i18next-2.3.4.js
+       src/html/classic/js/lib/i18next-languagedetector-0.2.2.js
+       src/html/classic/js/lib/i18next-xhr-0.5.3.js
+Copyright: Copyright (c) 2015 i18next
+License: Expat
+
+Files: debian/*
+Copyright: 2012 Mati Aharoni <muts@kali.org>
+           2013-2015 Raphaël Hertzog <hertzog@debian.org>
+           2014-2016 Sophie Brun <sophie@freexian.com>
+           2016 ChangZhuo Chen (陳昌倬) <czchen@debian.org>
+           2016-2017 SZ Lin (林上智) <szlin@debian.org>
+License: GPL-2+
+
+License: GPL-2+
+ This program is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public
+ License as published by the Free Software Foundation; either version 2 of
+ the License, or (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied
+ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ PURPOSE.  See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public
+ License along with this package; if not, write to the Free
+ Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+ Boston, MA  02110-1301 USA
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-2'.
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+
+License: BSD-3-clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 1. Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ 3. The name of the author may not be used to endorse or promote products
+ derived from this software without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.

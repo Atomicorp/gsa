@@ -1,0 +1,51 @@
+Source: greenbone-security-assistant
+Section: admin
+Priority: optional
+Maintainer: Debian Security Tools Packaging Team <pkg-security-team@lists.alioth.debian.org>
+Uploaders: ChangZhuo Chen (陳昌倬) <czchen@debian.org>,
+           SZ Lin (林上智) <szlin@debian.org>
+Build-Depends: debhelper (>= 9.20160709~),
+               dh-systemd,
+               cmake (>= 2.8),
+               doxygen,
+               libmicrohttpd-dev (>= 0.9.0),
+               libopenvas-dev (>= 9),
+               libxslt1-dev,
+               pkg-config,
+               xsltproc,
+               xmltoman,
+               libxml2-dev,
+               flawfinder,
+               splint
+Standards-Version: 4.0.0
+Homepage: http://www.openvas.org/
+Vcs-Git: https://anonscm.debian.org/git/pkg-security/greenbone-security-assistant.git
+Vcs-Browser: https://anonscm.debian.org/git/pkg-security/greenbone-security-assistant.git
+
+Package: greenbone-security-assistant-common
+Section: net
+Architecture: all
+Recommends: greenbone-security-assistant
+Depends: ${misc:Depends}, texlive-latex-extra
+Multi-Arch: foreign
+Description: architecture independent files for greenbone-security-assistant
+ The Greenbone Security Assistant is a web application that
+ connects to the OpenVAS Manager and OpenVAS Administrator
+ to provide for a full-featured user interface for
+ vulnerability management.
+ .
+ This package contains the common greenbone-security-assistant
+ files shared by all architectures.
+
+Package: greenbone-security-assistant
+Section: net
+Architecture: any
+Depends: lsb-base (>= 3.0-6),
+         greenbone-security-assistant-common (= ${source:Version}),
+         ${shlibs:Depends},
+         ${misc:Depends}
+Description: remote network security auditor - web interface
+ The Greenbone Security Assistant is a web application that
+ connects to the OpenVAS Manager and OpenVAS Administrator
+ to provide for a full-featured user interface for
+ vulnerability management.

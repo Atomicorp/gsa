@@ -1,0 +1,132 @@
+greenbone-security-assistant (7.0.2+dfsg.1-2build1) artful; urgency=medium
+
+  * No-change rebuild against latest libmicrohttpd
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sun, 09 Jul 2017 13:50:43 -0400
+
+greenbone-security-assistant (7.0.2+dfsg.1-2) unstable; urgency=medium
+
+  * Move package from experimental to sid archive
+  * Bump standards version to 4.0.0 
+
+ -- SZ Lin (林上智) <szlin@debian.org>  Tue, 20 Jun 2017 11:29:45 +0800
+
+greenbone-security-assistant (7.0.2+dfsg.1-1~exp1) experimental; urgency=medium
+
+  *  Import new upstream release
+  *  Move to experimental archive
+
+ -- SZ Lin (林上智) <szlin@debian.org>  Thu, 23 Mar 2017 19:01:12 +0800
+
+greenbone-security-assistant (7.0.0+dfsg.1-1) UNRELEASED; urgency=medium
+
+  * Import new upstream release
+
+ -- SZ Lin (林上智) <szlin@cs.nctu.edu.tw>  Mon, 14 Nov 2016 22:05:30 +0800
+
+greenbone-security-assistant (6.0.11+dfsg.1-2) unstable; urgency=low
+
+  * Fix upstream to make the build reproducible;
+    thanks to Reiner Herrmann (Closes: #843110)
+
+ -- SZ Lin (林上智) <szlin@cs.nctu.edu.tw>  Sat, 05 Nov 2016 16:06:54 +0800
+
+greenbone-security-assistant (6.0.11+dfsg.1-1) unstable; urgency=medium
+
+  * Import upstream version to Debian (Closes: #840082)
+
+ -- SZ Lin (林上智) <szlin@cs.nctu.edu.tw>  Thu, 13 Oct 2016 13:14:46 +0800
+
+greenbone-security-assistant (6.0.10-0kali1) kali-experimental; urgency=medium
+
+  * Import new upstream release
+
+ -- Sophie Brun <sophie@freexian.com>  Wed, 22 Jun 2016 12:02:31 +0200
+
+greenbone-security-assistant (6.0.5-0kali1) kali-dev; urgency=medium
+
+  * Import new upstream release
+
+ -- Sophie Brun <sophie@freexian.com>  Fri, 11 Sep 2015 09:39:53 +0200
+
+greenbone-security-assistant (6.0.1-0kali2) kali-dev; urgency=medium
+
+  * Add a proper systemd service file.
+
+ -- Raphaël Hertzog <hertzog@debian.org>  Tue, 28 Jul 2015 17:19:26 +0200
+
+greenbone-security-assistant (6.0.1-0kali1) kali; urgency=medium
+
+  * Import new upstream release
+
+ -- Sophie Brun <sophie@freexian.com>  Mon, 13 Apr 2015 10:43:40 +0200
+
+greenbone-security-assistant (5.0.1-0kali4) kali-dev; urgency=medium
+
+  * Rebuild in kali-dev for the libgcrypt20/gnutls28 transitions.
+
+ -- Raphaël Hertzog <hertzog@debian.org>  Fri, 21 Nov 2014 20:30:25 +0100
+
+greenbone-security-assistant (5.0.1-0kali3) kali; urgency=medium
+
+  * Disable start/stop of initscript in postinst.
+
+ -- Raphaël Hertzog <hertzog@debian.org>  Tue, 30 Sep 2014 09:20:19 +0200
+
+greenbone-security-assistant (5.0.1-0kali2) kali; urgency=medium
+
+  * Fix init script by dropping options related to openvas-administrator.
+
+ -- Raphaël Hertzog <hertzog@debian.org>  Mon, 04 Aug 2014 11:38:03 +0200
+
+greenbone-security-assistant (5.0.1-0kali1) kali; urgency=medium
+
+  * New upstream release. 
+  * Add build depends libxml2-dev as mentionned in INSTALL
+  * Add missing file source/format
+  * Add missing file debian/copyright
+  * Update debian/rules to use debhelper 9
+  * Update build-depends: debhelper 9 and drop hardening-wrapper
+  * Update debian/compat
+  * Update version of build depends libopenvas-dev >=7
+  * Create files .manpages and .docs
+  * Add flawfinder as build depends
+  * Add splint as build depends
+  * Disable dh_auto_test as it fails
+  * Add Default-stop 1 in file .init
+
+ -- Sophie Brun <sophie@freexian.com>  Fri, 01 Aug 2014 14:18:09 +0200
+
+greenbone-security-assistant (4.0.0-0kali2) kali; urgency=low
+
+  * Added texlive-latex-extra as an install depend to allow for PDF
+    reports (Closes: 0000430)
+
+ -- Raphaël Hertzog <hertzog@debian.org>  Tue, 03 Dec 2013 09:41:48 -0700
+
+greenbone-security-assistant (4.0.0-0kali1) kali; urgency=low
+
+  * New upstream release.
+  * Enable dh_install --list-missing.
+  * Update build dependencies.
+
+ -- Raphaël Hertzog <hertzog@debian.org>  Thu, 02 May 2013 12:21:49 +0200
+
+greenbone-security-assistant (3.0.3-1kali0) kali; urgency=low
+
+  * Version update
+
+ -- Mati Aharoni <muts@kali.org>  Tue, 04 Dec 2012 12:16:41 -0500
+
+greenbone-security-assistant (3.0+beta8-1kali1) kali; urgency=low
+
+  * Version bump
+
+ -- Mati Aharoni <muts@kali.org>  Tue, 04 Dec 2012 11:08:15 -0500
+
+greenbone-security-assistant (3.0+beta8-1kali0) kali; urgency=low
+
+  * Kali Import
+
+ -- Mati Aharoni <muts@kali.org>  Fri, 23 Nov 2012 01:52:25 +0000
+

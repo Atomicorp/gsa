@@ -1,0 +1,35 @@
+From 49fac0bcec62d3770fcd48f73e5bac669d06ca5d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?SZ=20Lin=20=28=E6=9E=97=E4=B8=8A=E6=99=BA=29?=
+ <szlin@cs.nctu.edu.tw>
+Date: Sat, 5 Nov 2016 16:04:11 +0800
+Subject: make the build reproducible
+
+---
+ tools/generate-cpe-icon-dict.sh | 3 ++-
+ tools/generate-zone-dict.sh     | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/tools/generate-cpe-icon-dict.sh b/tools/generate-cpe-icon-dict.sh
+index 0ec58be..c45bddf 100755
+--- a/tools/generate-cpe-icon-dict.sh
++++ b/tools/generate-cpe-icon-dict.sh
+@@ -152,4 +152,5 @@ else
+ fi
+ 
+ # Close root element
+-echo "\n</cpe_icon_dict>"
++echo
++echo "</cpe_icon_dict>"
+diff --git a/tools/generate-zone-dict.sh b/tools/generate-zone-dict.sh
+index f9951a8..39d6158 100755
+--- a/tools/generate-zone-dict.sh
++++ b/tools/generate-zone-dict.sh
+@@ -98,7 +98,7 @@ else
+ fi
+ 
+ echo "  <!-- Generated. -->"
+-sed '/^\#/d' /usr/share/zoneinfo/zone.tab | cut -s -f 3 | sort | sed -e "s;\(.*\);  <zone><name>\1</name></zone>;"
++sed '/^\#/d' /usr/share/zoneinfo/zone.tab | cut -s -f 3 | LC_ALL=C sort | sed -e "s;\(.*\);  <zone><name>\1</name></zone>;"
+ 
+ # Append manual zones.
+ if [ -r "$APPEND_FILE" ]

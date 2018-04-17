@@ -1,0 +1,31 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpkg/architecture.mk
+
+# Teach splint to find header files in multiarch path (workaround #675025)
+export CPATH = /usr/include/$(DEB_HOST_MULTIARCH):/usr/include
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ --parallel --with systemd
+
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_INSTALL_PREFIX=/usr -DSYSCONFDIR=/etc -DLOCALSTATEDIR=/var -DCMAKE_BUILD_TYPE=release
+
+override_dh_install:
+	dh_install --list-missing
+
+override_dh_clean:
+	dh_clean
+
+override_dh_auto_test:
+	# disabled because make check fails
+
+override_dh_strip:
+	dh_strip --dbgsym-migration='greenbone-security-assistant (<< 6.0.10-1~)'
+
+override_dh_installinit:
+	dh_installinit --no-start
+
+get-orig-source::
+	-uscan --force-download

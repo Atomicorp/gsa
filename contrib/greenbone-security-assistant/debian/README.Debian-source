@@ -1,0 +1,4 @@
+The .orig.tar.gz file may be retrieved by "debian/rules get-orig-source"
+
+This rule results in the file greenbone-security-assistant_current.orig.tar.gz which should be renamed with 
+the real version, for example greenbone-security-assistant_1.1.orig.tar.gz
