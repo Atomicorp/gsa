@@ -1,9 +1,9 @@
 Source: greenbone-security-assistant
 Section: admin
 Priority: optional
-Maintainer: Debian Security Tools Packaging Team <pkg-security-team@lists.alioth.debian.org>
-Uploaders: ChangZhuo Chen (陳昌倬) <czchen@debian.org>,
-           SZ Lin (林上智) <szlin@debian.org>
+Maintainer: Atomicorp <support@atomicorp.com>
+Uploaders: Atomicorp <support@atomicorp.com>
+
 Build-Depends: debhelper (>= 9.20160709~),
                dh-systemd,
                cmake (>= 2.8),
@@ -19,8 +19,6 @@ Build-Depends: debhelper (>= 9.20160709~),
                splint
 Standards-Version: 4.0.0
 Homepage: http://www.openvas.org/
-Vcs-Git: https://anonscm.debian.org/git/pkg-security/greenbone-security-assistant.git
-Vcs-Browser: https://anonscm.debian.org/git/pkg-security/greenbone-security-assistant.git
 
 Package: greenbone-security-assistant-common
 Section: net
