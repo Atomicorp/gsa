@@ -5,6 +5,7 @@
 # [Service]
 # ExecStart=
 # ExecStart=/usr/sbin/gsad --foreground <your desired options>
+OPTIONS=""
 
 # The address the Greenbone Security Assistant will listen on.
 GSA_ADDRESS=127.0.0.1
