@@ -1,0 +1,14 @@
+#GSA listens on given address - by default GSA listens on all addresses
+#GSA_LISTEN=--listen=127.0.0.1
+
+#GSA listens on given port - by default 443
+GSA_PORT=--port=9443
+
+#Contact manager on given address
+MANAGER_LISTEN=--mlisten=127.0.0.1
+
+#Manager listens on given port - by default 9390
+MANAGER_PORT=--mport=9390
+
+#GNUTLSSTRING
+GNUTLSSTRING=--gnutls-priorities=SECURE128:-AES-128-CBC:-CAMELLIA-128-CBC:-VERS-SSL3.0:-VERS-TLS1.0

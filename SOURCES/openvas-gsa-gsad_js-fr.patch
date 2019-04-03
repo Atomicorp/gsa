@@ -1,0 +1,11 @@
+--- gsa-7.0.3/src/po/gsad_js-fr.po.orig	2018-03-28 15:23:57.000000001 +0200
++++ gsa-7.0.3/src/po/gsad_js-fr.po	2019-01-27 16:13:51.698570594 +0100
+@@ -427,7 +427,7 @@
+ 
+ #: /home/timo/openvas/src/proj1-trunk/gsa/src/html/classic/js/gsa_h_bar_chart.js:275
+ msgid "<br/>({{assets}} Host(s) with average severity {{severity}})"
+-msgid "<br/>({{assets}} Hôte(s) avec une moyenne de sévérité {{severity}})"
++msgstr "<br/>({{assets}} Hôte(s) avec une moyenne de sévérité {{severity}})"
+ 
+ #: /home/timo/openvas/src/proj1-trunk/gsa/src/html/classic/js/gsa_line_chart.js:79
+ msgid "Loading line chart ..."

@@ -1,0 +1,21 @@
+--- gsa-7.0.3/src/po/CMakeLists.txt.orig	2018-03-28 15:23:57.000000001 +0200
++++ gsa-7.0.3/src/po/CMakeLists.txt	2019-01-27 16:39:59.833430822 +0100
+@@ -67,7 +67,6 @@
+ endmacro ()
+ 
+ if (GETTEXT_FOUND)
+-  if (PY_POLIB_FOUND)
+     MAKE_TRANSLATION (ar)
+     MAKE_TRANSLATION (de)
+     MAKE_TRANSLATION (fr)
+@@ -156,10 +155,6 @@
+                         DEPENDS ${CMAKE_SOURCE_DIR}/src/html/classic/*.xsl
+                         COMMENT "Creating translation template (.pot) file from XSLT")
+ 
+-  else (PY_POLIB_FOUND)
+-    message (WARNING "Could not build translation files: Python interpreter or polib Python module not found.")
+-  endif (PY_POLIB_FOUND)
+-
+ else (GETTEXT_FOUND)
+   message (WARNING "Could not build translation files: gettext not found.")
+ endif (GETTEXT_FOUND)

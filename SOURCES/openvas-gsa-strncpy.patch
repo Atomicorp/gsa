@@ -1,0 +1,27 @@
+From 023f5bac270456ce5bc6bae3312b7aa581fb739a Mon Sep 17 00:00:00 2001
+From: cheese1 <cheese@nosuchhost.net>
+Date: Tue, 5 Feb 2019 13:03:41 +0100
+Subject: [PATCH] Update gsad.c
+
+Buffer not null-terminated.
+---
+ gsad/src/gsad.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/gsad/src/gsad.c b/gsad/src/gsad.c
+index 8beedb865..808297403 100644
+--- a/gsad/src/gsad.c
++++ b/gsad/src/gsad.c
+@@ -2585,8 +2585,11 @@
+       g_warning ("%s: Couldn't create UNIX socket", __FUNCTION__);
+       return NULL;
+     }
++ 
++  memset (&addr, 0, sizeof (struct sockaddr_un));
++ 
+   addr.sun_family = AF_UNIX;
+-  strncpy (addr.sun_path, unix_socket_path, sizeof (addr.sun_path));
++  strncpy (addr.sun_path, unix_socket_path, sizeof (addr.sun_path) - 1);
+   if (!stat (addr.sun_path, &ustat))
+     {
+       /* Remove socket so we can bind(). Keep same permissions when recreating

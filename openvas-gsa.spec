@@ -1,13 +1,19 @@
 Summary: GSA
 Name:    greenbone-security-assistant
-Version: 7.0.2
+Version: 7.0.3
 Release: RELEASE-AUTO%{?dist}.art
-Source0: http://wald.intevation.org/frs/download.php/2429/greenbone-security-assistant-7.0.2.tar.gz
+Source0:        https://github.com/greenbone/gsa/archive/v%{version}.tar.gz
 Source1: gsad.sysconfig
 Source2: gsad.logrotate
 Source3: gsad.init
 Source4: gsad.service
-Patch0: gsad-8.0.1-werror.patch
+Patch1: openvas-gsa-pki.patch
+Patch2: openvas-gsa-gsad_js-fr.patch
+Patch3: openvas-gsa-polib.patch
+Patch4: openvas-gsa-doxygen_full.patch
+Patch5: openvas-gsa-strncpy.patch
+
+
 License: GNU GPLv2
 URL: http://www.openvas.org
 Group: System Environment/Libraries
@@ -22,7 +28,15 @@ BuildRequires: openvas-libraries-devel >= 7.0
 BuildRequires: flex 
 BuildRequires: automake  libtool 
 BuildRequires:  cmake >= 2.6.0
-BuildRequires: libgcrypt-devel gpgme gpgme-devel
+
+# El7
+%if  0%{?rhel} == 7
+BuildRequires: atomic-libgcrypt-libgcrypt atomic-libgcrypt-libgcrypt-devel atomic-libgcrypt-libgcrypt-runtime atomic-libgpg-error-libgpg-error-devel atomic-libgpg-error-libgpg-error-runtime
+%else
+BuildRequires: libgcrypt-devel
+%endif
+
+BuildRequires: gpgme gpgme-devel
 BuildRequires: libmicrohttpd libmicrohttpd-devel libxml2 libxml2-devel
 BuildRequires: doxygen
 BuildRequires: openvas-smb
@@ -67,14 +81,29 @@ BuildRequires: glib2 >= 2.6.0, glib2-devel >= 2.6.0,
 %endif
 
 BuildRequires: libpcap-devel
-
- 
 %description
-GSA
+The Greenbone Security Assistant (GSA) is a lean web service offering a user
+web interface for the Open Vulnerability Assessment System (OpenVAS).
+The GSA uses XSL transformation style-sheets that converts OMP responses
+from the OpenVAS infrastructure into presentable HTML.
+
+
+%package doc
+Summary:        Development documentation for %{name}
+BuildRequires:  graphviz
+
+%description doc
+You can find documentation for development of %{name} under file://%{_docdir}/%{name}-doc.
+It can be used with a Browser.
+
 
 %prep
-%setup -n %{name}-%{version} -b 0
-#%patch0 -p1 
+%setup -q -n gsa-%{version}
+
+iconv -f Windows-1250 -t utf-8 < CHANGES > CHANGES.utf8
+touch -r CHANGES CHANGES.utf8
+mv CHANGES.utf8 CHANGES
+
 
 %build
 
@@ -86,20 +115,25 @@ GSA
   export PKG_CONFIG_PATH=/opt/atomic/atomic-glib2/root/usr/lib64/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib64/pkgconfig:/usr/lib/pkgconfig/
 %endif
 
+%if  0%{?rhel} == 7
+        # This should do it normally, but it doesnt without the rpath down below
+        . /opt/atomic/atomic-libgpg-error/enable
+        . /opt/atomic/atomic-libgcrypt/enable
+        export CC="gcc -Wl,-rpath,/opt/atomic/atomic-libgpg-error/root/usr/lib64,-rpath,/opt/atomic/atomic-libgcrypt/root/usr/lib64/"
+        export PATH="/opt/atomic/atomic-libgpg-error/root/usr/bin:/opt/atomic/atomic-libgcrypt/root/usr/bin:$PATH"
+        export LDFLAGS="-L/opt/atomic/atomic-libgpg-error/root/usr/lib64 -L/opt/atomic/atomic-libgcrypt/root/usr/lib64/ -lgcrypt"
+        export CFLAGS="-I/opt/atomic/atomic-libgpg-error/root/usr/include -I/opt/atomic/atomic-libgcrypt/root/usr/include"
+        export PKG_CONFIG_PATH="/opt/atomic/atomic-libgpg-error/root/usr/lib64/pkgconfig:/opt/atomic/atomic-libgcrypt/root/usr/lib64/pkgconfig:/usr/lib64/pkgconfig:/usr/lib/pkgconfig"
+        export CMAKE_PREFIX_PATH=/opt/atomic/atomic-libgcrypt/root/
+
+%endif
+
 export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -Wno-error=deprecated-declarations"
 
 %cmake -DLOCALSTATEDIR:PATH=%{_var} -DSYSCONFDIR:PATH=/etc/
 make %{?_smp_mflags} VERBOSE=1
-#make VERBOSE=1
 
-#cmake -DCMAKE_VERBOSE_MAKEFILE=ON \
-#        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-#        -DSYSCONFDIR=%{_sysconfdir} \
-#        -DLOCALSTATEDIR=%{_localstatedir}
-
-#%{__make}  %{?_smp_mflags}
-#%{__make}  
-%{__make}  doc
+make doc-full
 
 
 %install
@@ -159,7 +193,8 @@ fi
 
 %files
 %defattr(-,root,root,-)
-%doc CHANGES ChangeLog COPYING README
+%license COPYING
+%doc CHANGES  README
 %config(noreplace) /etc/sysconfig/gsad
 %config(noreplace) %{_sysconfdir}/openvas/gsad_log.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/gsad
@@ -174,9 +209,16 @@ fi
 %dir %{_localstatedir}/log/openvas
 %ghost %{_localstatedir}/log/openvas/gsad.log
 
+%files doc
+%doc doc/generated/html/*
+
 
 
 %changelog
+* Wed Apr 3 2019 Scott R. Shinn <scott@atomicorp.com> - 7.0.3-RELEASE-AUTO
+- Update to 7.0.3
+- Merge elements from Fedora project
+
 * Wed Feb 3 2016 Scott R. Shinn <scott@atomicorp.com> - 6.0.9-24
 - Update to 6.0.9
 

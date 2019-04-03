@@ -1,0 +1,18 @@
+[Unit]
+Description=OpenVAS Greenbone Security Assistant
+After=network.target
+After=openvas-scanner.service
+After=openvas-manager.service
+
+[Service]
+Type=forking
+EnvironmentFile=-/etc/sysconfig/openvas-gsa
+ExecStart=/usr/sbin/gsad $GSA_LISTEN $GSA_PORT $MANAGER_LISTEN $MANAGER_PORT $GNUTLSSTRING
+Restart=always
+RestartSec=1
+User=root
+Group=root
+TimeoutSec=1200
+
+[Install]
+WantedBy=multi-user.target
