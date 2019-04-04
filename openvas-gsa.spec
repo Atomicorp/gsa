@@ -193,7 +193,8 @@ fi
 
 
 
-%files -f gsad_xsl.lang
+#%files -f gsad_xsl.lang
+%files 
 %defattr(-,root,root,-)
 %license COPYING
 %doc CHANGES  README
