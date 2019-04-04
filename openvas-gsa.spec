@@ -132,7 +132,6 @@ export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -Wno-e
 
 %cmake -DLOCALSTATEDIR:PATH=%{_var} -DSYSCONFDIR:PATH=/etc/
 make %{?_smp_mflags} VERBOSE=1
-
 make doc-full
 
 
@@ -143,6 +142,7 @@ rm -rf %{buildroot}
 %{__install} -D -m 644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/sysconfig/gsad
 %{__install} -D -m 644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/logrotate.d/gsad
 
+
 %if 0%{?rhel} >= 7 || 0%{?fedora} > 15
 %{__install} -Dp -m 644 %{SOURCE4} %{buildroot}/%{_unitdir}/gsad.service
 %else
@@ -151,6 +151,8 @@ rm -rf %{buildroot}
 
 %{__mkdir_p}  %{buildroot}%{_localstatedir}/log/openvas
 touch %{buildroot}%{_localstatedir}/log/openvas/gsad.log
+
+%find_lang gsad_xsl
 
 
 %clean
@@ -191,7 +193,7 @@ fi
 
 
 
-%files
+%files -f gsad_xsl.lang
 %defattr(-,root,root,-)
 %license COPYING
 %doc CHANGES  README
