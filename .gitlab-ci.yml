@@ -104,7 +104,7 @@ build-fc27-x86_64:
     - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh fc27-x86_64 openvas-gsa.spec /mnt/repo/atomic-testing/fedora/27/x86_64 ; else  gitlab-build.sh fc27-x86_64 openvas-gsa.spec /mnt/repo/atomic-bleeding/fedora/27/x86_64 ; fi )
 
 build-fc28-x86_64:
-  stage: prep
+  stage: build
   before_script:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - mkdir -p ~/mock
@@ -119,7 +119,7 @@ build-fc28-x86_64:
 
 
 build-fc29-x86_64:
-  stage: prep
+  stage: build
   before_script:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - mkdir -p ~/mock
