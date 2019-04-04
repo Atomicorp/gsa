@@ -152,7 +152,7 @@ rm -rf %{buildroot}
 %{__mkdir_p}  %{buildroot}%{_localstatedir}/log/openvas
 touch %{buildroot}%{_localstatedir}/log/openvas/gsad.log
 
-%find_lang gsad_xsl
+#find_lang gsad_xsl
 
 
 %clean
