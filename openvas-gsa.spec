@@ -37,17 +37,18 @@ BuildRequires: atomic-gpgme, atomic-gpgme-devel
 BuildRequires: atomic-zlib, atomic-zlib-devel
 # This needs to be renamed
 BuildRequires: atomic-heimdal-runtime
+
 BuildRequires: cmake3
+BuildRequires: rh-nodejs8
 
 %else
 BuildRequires: libgcrypt-devel
 BuildRequires: nodejs
-
-BuildRequires: yarn
-# Tries to download dependencies, but mock fail on that, example below:
-#   
-#BuildRequires: npm
+BuildRequires: npm
 %endif
+
+# new requires
+#BuildRequires: yarn
 
 BuildRequires: gpgme gpgme-devel
 BuildRequires: libmicrohttpd libmicrohttpd-devel libxml2 libxml2-devel
@@ -118,23 +119,19 @@ It can be used with a Browser.
 
 export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -Wno-error=deprecated-declarations"
 
-%if 0%{?rhel} == 6
-  export CC="gcc -Wl,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib64,-rpath,/opt/atomic/atomic-glib2/root/usr/lib64/,-rpath,/opt/atomic/atomic-glib2/root/usr/lib/"
-  export LDFLAGS="-L/opt/atomic/atomic-gnutls3/root/usr/lib -L/opt/atomic/atomic-gnutls3/root/usr/lib64 -L/lib -L/usr/openvas/lib/ -L/usr/openvas/lib64/"
-  export CFLAGS="-I/opt/atomic/atomic-gnutls3/root/usr/include  -I/usr/openvas/include"
-  export GNUTLS_LIBS=/opt/atomic/atomic-gnutls3/root/usr/lib:/opt/atomic/atomic-gnutls3/root/usr/lib64
-  export PKG_CONFIG_PATH=/opt/atomic/atomic-glib2/root/usr/lib64/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib64/pkgconfig:/usr/lib/pkgconfig/
-%endif
-
-
 %if  0%{?rhel} == 7
         source /opt/atomicorp/atomic/enable
+
+
         export CC="gcc -Wl,-rpath,/opt/atomicorp/atomic/root/usr/lib64/"
         export PATH="/opt/atomicorp/atomic/root/usr/bin:$PATH"
         export LDFLAGS="-L/opt/atomicorp/atomic/root/usr/lib64/ -lgcrypt -ldl -lgpg-error"
         export CFLAGS="$CFLAGS -I/opt/atomicorp/atomic/root/usr/include/"
         export PKG_CONFIG_PATH="/opt/atomicorp/atomic/root/usr/lib64/pkgconfig"
         export CMAKE_PREFIX_PATH="/opt/atomicorp/atomic/root/"
+
+	source /opt/rh/rh-nodejs8/enable 
+
 
 %endif
 
@@ -145,8 +142,11 @@ cmake3 \
 %cmake \
 %endif
 	-DCMAKE_BUILD_TYPE=Release \
-	-DLOCALSTATEDIR:PATH=%{_var} \
-	-DSYSCONFDIR:PATH=/etc/
+        -DCMAKE_VERBOSE_MAKEFILE=ON \
+        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+        -DSYSCONFDIR=%{_sysconfdir} \
+        -DLIBDIR=%{_libdir} \
+        -DLOCALSTATEDIR=%{_localstatedir} 
 
 make %{?_smp_mflags} VERBOSE=1
 make doc-full
@@ -226,7 +226,7 @@ fi
 %endif
 %dir %{_localstatedir}/log/openvas
 %ghost %{_localstatedir}/log/openvas/gsad.log
-/usr/share/gvm/gsad/*
+/usr/share/gvm/*
 
 %files doc
 #%doc doc/generated/html/*
