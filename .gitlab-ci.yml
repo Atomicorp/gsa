@@ -42,6 +42,7 @@ build-el7-x86_64:
     - mkdir -p ~/mock
     - cp mock/* ~/mock/
     - cp *.spec ~/rpmbuild/SPECS/
+    - rm -rf ~/rpmbuild/SOURCES/*
     - cp SOURCES/* ~/rpmbuild/SOURCES/
     
 
@@ -125,6 +126,7 @@ build-fc29-x86_64:
     - mkdir -p ~/mock
     - cp mock/* ~/mock/
     - cp openvas-gsa.spec ~/rpmbuild/SPECS/
+    - rm -rf ~/rpmbuild/SOURCES/*
     - cp SOURCES/* ~/rpmbuild/SOURCES/
 
 
