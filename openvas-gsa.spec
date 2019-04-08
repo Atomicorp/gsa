@@ -35,9 +35,6 @@ BuildRequires: atomic-libgcrypt, atomic-libgcrypt-devel
 BuildRequires: atomic-libgpg-error, atomic-libgpg-error-devel
 BuildRequires: atomic-gpgme, atomic-gpgme-devel
 BuildRequires: atomic-zlib, atomic-zlib-devel
-# This needs to be renamed
-BuildRequires: atomic-heimdal-runtime
-
 BuildRequires: cmake3
 BuildRequires: rh-nodejs8
 
@@ -120,8 +117,6 @@ It can be used with a Browser.
 export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -Wno-error=deprecated-declarations"
 
 %if  0%{?rhel} == 7
-        source /opt/atomicorp/atomic/enable
-
 
         export CC="gcc -Wl,-rpath,/opt/atomicorp/atomic/root/usr/lib64/"
         export PATH="/opt/atomicorp/atomic/root/usr/bin:$PATH"
