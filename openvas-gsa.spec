@@ -118,7 +118,7 @@ export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -Wno-error=depreca
 
 %if  0%{?rhel} == 7
 
-        export CC="gcc -Wl,-rpath,/opt/atomicorp/atomic/root/usr/lib64/"
+        export CC="gcc -Wl,-rpath,/opt/atomicorp/atomic/root/usr/lib64/,-rpath,/opt/atomicorp/atomic/root/usr/lib64/heimdal/"
         export PATH="/opt/atomicorp/atomic/root/usr/bin:$PATH"
         export LDFLAGS="-L/opt/atomicorp/atomic/root/usr/lib64/ -lgcrypt -ldl -lgpg-error"
         export CFLAGS="$CFLAGS -I/opt/atomicorp/atomic/root/usr/include/"
