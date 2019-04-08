@@ -1,6 +1,6 @@
 Summary: GSA
 Name:    greenbone-security-assistant
-Version: 7.0.3
+Version: 8.0.0
 Release: RELEASE-AUTO%{?dist}.art
 Source0:        https://github.com/greenbone/gsa/archive/v%{version}.tar.gz
 Source1: gsad.sysconfig
@@ -31,10 +31,24 @@ BuildRequires:  cmake >= 2.6.0
 
 # El7
 %if  0%{?rhel} == 7
-BuildRequires: atomic-libgcrypt-libgcrypt atomic-libgcrypt-libgcrypt-devel atomic-libgcrypt-libgcrypt-runtime atomic-libgpg-error-libgpg-error-devel atomic-libgpg-error-libgpg-error-runtime
+BuildRequires: atomic-libgcrypt, atomic-libgcrypt-devel
+BuildRequires: atomic-libgpg-error, atomic-libgpg-error-devel
+BuildRequires: atomic-gpgme, atomic-gpgme-devel
+BuildRequires: atomic-zlib, atomic-zlib-devel
+# This needs to be renamed
+BuildRequires: atomic-heimdal-runtime
+
+BuildRequires: cmake3
+BuildRequires: rh-nodejs8
+
 %else
 BuildRequires: libgcrypt-devel
+BuildRequires: nodejs
+BuildRequires: npm
 %endif
+
+# new requires
+#BuildRequires: yarn
 
 BuildRequires: gpgme gpgme-devel
 BuildRequires: libmicrohttpd libmicrohttpd-devel libxml2 libxml2-devel
@@ -100,37 +114,40 @@ It can be used with a Browser.
 %prep
 %setup -q -n gsa-%{version}
 
-iconv -f Windows-1250 -t utf-8 < CHANGES > CHANGES.utf8
-touch -r CHANGES CHANGES.utf8
-mv CHANGES.utf8 CHANGES
-
 
 %build
 
-%if 0%{?rhel} == 6
-  export CC="gcc -Wl,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib,-rpath,/opt/atomic/atomic-gnutls3/root/usr/lib64,-rpath,/opt/atomic/atomic-glib2/root/usr/lib64/,-rpath,/opt/atomic/atomic-glib2/root/usr/lib/"
-  export LDFLAGS="-L/opt/atomic/atomic-gnutls3/root/usr/lib -L/opt/atomic/atomic-gnutls3/root/usr/lib64 -L/lib -L/usr/openvas/lib/ -L/usr/openvas/lib64/"
-  export CFLAGS="-I/opt/atomic/atomic-gnutls3/root/usr/include  -I/usr/openvas/include"
-  export GNUTLS_LIBS=/opt/atomic/atomic-gnutls3/root/usr/lib:/opt/atomic/atomic-gnutls3/root/usr/lib64
-  export PKG_CONFIG_PATH=/opt/atomic/atomic-glib2/root/usr/lib64/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib64/pkgconfig:/usr/lib/pkgconfig/
-%endif
+export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -Wno-error=deprecated-declarations"
 
 %if  0%{?rhel} == 7
-        # This should do it normally, but it doesnt without the rpath down below
-        . /opt/atomic/atomic-libgpg-error/enable
-        . /opt/atomic/atomic-libgcrypt/enable
-        export CC="gcc -Wl,-rpath,/opt/atomic/atomic-libgpg-error/root/usr/lib64,-rpath,/opt/atomic/atomic-libgcrypt/root/usr/lib64/"
-        export PATH="/opt/atomic/atomic-libgpg-error/root/usr/bin:/opt/atomic/atomic-libgcrypt/root/usr/bin:$PATH"
-        export LDFLAGS="-L/opt/atomic/atomic-libgpg-error/root/usr/lib64 -L/opt/atomic/atomic-libgcrypt/root/usr/lib64/ -lgcrypt"
-        export CFLAGS="-I/opt/atomic/atomic-libgpg-error/root/usr/include -I/opt/atomic/atomic-libgcrypt/root/usr/include"
-        export PKG_CONFIG_PATH="/opt/atomic/atomic-libgpg-error/root/usr/lib64/pkgconfig:/opt/atomic/atomic-libgcrypt/root/usr/lib64/pkgconfig:/usr/lib64/pkgconfig:/usr/lib/pkgconfig"
-        export CMAKE_PREFIX_PATH=/opt/atomic/atomic-libgcrypt/root/
+        source /opt/atomicorp/atomic/enable
+
+
+        export CC="gcc -Wl,-rpath,/opt/atomicorp/atomic/root/usr/lib64/"
+        export PATH="/opt/atomicorp/atomic/root/usr/bin:$PATH"
+        export LDFLAGS="-L/opt/atomicorp/atomic/root/usr/lib64/ -lgcrypt -ldl -lgpg-error"
+        export CFLAGS="$CFLAGS -I/opt/atomicorp/atomic/root/usr/include/"
+        export PKG_CONFIG_PATH="/opt/atomicorp/atomic/root/usr/lib64/pkgconfig"
+        export CMAKE_PREFIX_PATH="/opt/atomicorp/atomic/root/"
+
+	source /opt/rh/rh-nodejs8/enable 
+
 
 %endif
 
-export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -Wno-error=deprecated-declarations"
 
-%cmake -DLOCALSTATEDIR:PATH=%{_var} -DSYSCONFDIR:PATH=/etc/
+%if  0%{?rhel} == 7
+cmake3 \
+%else
+%cmake \
+%endif
+	-DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_VERBOSE_MAKEFILE=ON \
+        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+        -DSYSCONFDIR=%{_sysconfdir} \
+        -DLIBDIR=%{_libdir} \
+        -DLOCALSTATEDIR=%{_localstatedir} 
+
 make %{?_smp_mflags} VERBOSE=1
 make doc-full
 
@@ -196,10 +213,9 @@ fi
 #%files -f gsad_xsl.lang
 %files 
 %defattr(-,root,root,-)
-%license COPYING
-%doc CHANGES  README
+%license LICENSE
 %config(noreplace) /etc/sysconfig/gsad
-%config(noreplace) %{_sysconfdir}/openvas/gsad_log.conf
+%config(noreplace) /etc/gvm/gsad_log.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/gsad
 %{_sbindir}/gsad
 %{_mandir}/man8/gsad.8*
@@ -208,16 +224,19 @@ fi
 %else
 /etc/init.d/gsad
 %endif
-/usr/share/openvas/gsa
 %dir %{_localstatedir}/log/openvas
 %ghost %{_localstatedir}/log/openvas/gsad.log
+/usr/share/gvm/*
 
 %files doc
-%doc doc/generated/html/*
+#%doc doc/generated/html/*
 
 
 
 %changelog
+* Sun Apr 7 2019 Scott R. Shinn <scott@atomicorp.com> - 8.0.0-RELEASE-AUTO
+- Update to 8.0.0
+
 * Wed Apr 3 2019 Scott R. Shinn <scott@atomicorp.com> - 7.0.3-RELEASE-AUTO
 - Update to 7.0.3
 - Merge elements from Fedora project
