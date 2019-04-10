@@ -229,10 +229,10 @@ fi
 
 
 %changelog
-* Sun Apr 7 2019 Scott R. Shinn <scott@atomicorp.com> - 8.0.0-RELEASE-AUTO
+* Sun Apr 7 2019 Scott R. Shinn <scott@atomicorp.com> - 8.0.0
 - Update to 8.0.0
 
-* Wed Apr 3 2019 Scott R. Shinn <scott@atomicorp.com> - 7.0.3-RELEASE-AUTO
+* Wed Apr 3 2019 Scott R. Shinn <scott@atomicorp.com> - 7.0.3
 - Update to 7.0.3
 - Merge elements from Fedora project
 
