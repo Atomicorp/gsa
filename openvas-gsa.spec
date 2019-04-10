@@ -2,6 +2,7 @@ Summary: GSA
 Name:    greenbone-security-assistant
 Version: 8.0.0
 Release: RELEASE-AUTO%{?dist}.art
+
 Source0:        https://github.com/greenbone/gsa/archive/v%{version}.tar.gz
 Source1: gsad.sysconfig
 Source2: gsad.logrotate
@@ -16,9 +17,8 @@ Patch5: openvas-gsa-strncpy.patch
 
 License: GNU GPLv2
 URL: http://www.openvas.org
-Group: System Environment/Libraries
-Vendor: OpenVAS Development Team, http://www.openvas.org
-Packager: Scott R. Shinn <scott@atomicorp.com>
+Vendor: Greenbone https://www.greenbone.net
+Packager: https://www.atomicorp.com
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Prefix: %{_prefix}
 Provides: openvas-gsa
