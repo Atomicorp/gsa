@@ -24,7 +24,7 @@ Prefix: %{_prefix}
 Provides: openvas-gsa
 
 
-BuildRequires: openvas-libraries-devel >= 7.0
+BuildRequires: gvm-libs-devel
 BuildRequires: flex 
 BuildRequires: automake  libtool 
 BuildRequires:  cmake >= 2.6.0
@@ -129,6 +129,12 @@ export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -Wno-error=depreca
 
 
 %endif
+
+%if 0%{?fedora} >= 30
+# disable warnings -> error for stringop-truncation for now
+export CFLAGS="${CFLAGS} -Wno-error=stringop-truncation"
+%endif
+
 
 
 %if  0%{?rhel} == 7
