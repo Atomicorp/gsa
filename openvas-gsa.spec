@@ -1,6 +1,6 @@
 Summary: GSA
 Name:    greenbone-security-assistant
-Version: 8.0.0
+Version: 9.0.0
 Release: RELEASE-AUTO%{?dist}.art
 
 Source0:        https://github.com/greenbone/gsa/archive/v%{version}.tar.gz
