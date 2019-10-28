@@ -36,16 +36,21 @@ BuildRequires: atomic-libgpg-error, atomic-libgpg-error-devel
 BuildRequires: atomic-gpgme, atomic-gpgme-devel
 BuildRequires: atomic-zlib, atomic-zlib-devel
 BuildRequires: cmake3
-BuildRequires: rh-nodejs8
-
+#BuildRequires: rh-nodejs8
 %else
 BuildRequires: libgcrypt-devel
-BuildRequires: nodejs
-BuildRequires: npm
 %endif
 
-# new requires
-#BuildRequires: yarn
+BuildRequires: nodejs
+BuildRequires: nodejs-devel
+
+%if  0%{?rhel} 
+BuildRequires: yarn
+%endif
+
+%if 0%{?fedora}
+BuildRequires: nodejs-yarn
+%endif
 
 BuildRequires: gpgme gpgme-devel
 BuildRequires: libmicrohttpd libmicrohttpd-devel libxml2 libxml2-devel
@@ -125,7 +130,7 @@ export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -Wno-error=depreca
         export PKG_CONFIG_PATH="/opt/atomicorp/atomic/root/usr/lib64/pkgconfig"
         export CMAKE_PREFIX_PATH="/opt/atomicorp/atomic/root/"
 
-	source /opt/rh/rh-nodejs8/enable 
+	#source /opt/rh/rh-nodejs8/enable 
 
 
 %endif
@@ -157,8 +162,10 @@ make doc-full
 rm -rf %{buildroot}
 %{__make} install DESTDIR=%{buildroot}
 
-%{__install} -D -m 644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/sysconfig/gsad
-%{__install} -D -m 644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/logrotate.d/gsad
+mkdir -p %{buildroot}/etc/sysconfig/
+mkdir -p %{buildroot}/etc/logrotate.d/
+%{__install} -D -m 644 %{SOURCE1} %{buildroot}/etc/sysconfig/gsad
+%{__install} -D -m 644 %{SOURCE2} %{buildroot}/etc/logrotate.d/gsad
 
 
 %if 0%{?rhel} >= 7 || 0%{?fedora} > 15
@@ -170,6 +177,11 @@ rm -rf %{buildroot}
 %{__mkdir_p}  %{buildroot}%{_localstatedir}/log/openvas
 touch %{buildroot}%{_localstatedir}/log/openvas/gsad.log
 
+
+# Post cleanup
+if [ -d %{buildroot}/usr/etc ]; then
+	rm -rf %{buildroot}/usr/etc/
+fi
 #find_lang gsad_xsl
 
 
