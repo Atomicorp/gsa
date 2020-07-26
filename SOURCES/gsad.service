@@ -1,18 +1,16 @@
 [Unit]
 Description=Greenbone Security Assistant (OpenVAS)
 After=network.target
-After=openvas-scanner.service
-After=openvas-manager.service
+After=ospd-openvas.service
+After=gvmd.service
 
 [Service]
 Type=forking
 EnvironmentFile=-/etc/sysconfig/gsad
-ExecStart=/usr/sbin/gsad $OPTIONS
-Restart=always
-RestartSec=1
+PIDFile=/var/run/gsad.pid
+ExecStart=/usr/sbin/gsad  --munix-socket=/var/run/gvm/gvmd.sock  $OPTIONS
 User=root
 Group=root
-TimeoutSec=1200
 
 [Install]
 WantedBy=multi-user.target
