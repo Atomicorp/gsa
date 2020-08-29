@@ -28,6 +28,7 @@ BuildRequires: gvm-libs-devel
 BuildRequires: flex 
 BuildRequires: automake  libtool 
 BuildRequires:  cmake >= 2.6.0
+BuildRequires: gcc, gcc-g++, ccache
 
 # El7
 %if  0%{?rhel} == 7
